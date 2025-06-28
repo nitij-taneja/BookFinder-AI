@@ -2,25 +2,24 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/main.py",
+      "src": "src/main.py",  // Ensure 'src/main.py' is the correct path
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
     },
     {
-      "src": "../book-info-system/package.json",
+      "src": "book-info-system/package.json",  // Adjusted path, no need for '../'
       "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "config": { "distDir": "book-info-system/dist" }  // Make sure dist is in the right place
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "/api/(.*)",  // This route will direct to your Flask API
       "dest": "src/main.py"
     },
     {
-      "src": "/(.*)",
-      "dest": "../book-info-system/dist/$1"
+      "src": "/(.*)",  // This will route other requests to your static build
+      "dest": "book-info-system/dist/$1"
     }
   ]
 }
-
